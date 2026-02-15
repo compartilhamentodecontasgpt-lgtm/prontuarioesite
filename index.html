@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dr. Orlando Abreu Gomes da Silva</title>
+
+<style>
+/* ====== SEU EXTERNO (IGUALZINHO) ====== */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: #f1f5f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+}
+
+.container {
+  max-width: 900px;
+  padding: 60px;
+}
+
+h1 {
+  font-size: 36px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #38bdf8;
+  letter-spacing: 1px;
+}
+
+.subtitle {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #cbd5e1;
+}
+
+.section {
+  margin-bottom: 20px;
+  padding: 20px;
+  border-left: 3px solid #38bdf8;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  text-align: left;
+}
+
+.section h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #7dd3fc;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.section p {
+  font-size: 15px;
+  color: #e2e8f0;
+  line-height: 1.6;
+}
+
+.footer {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #94a3b8;
+}
+
+/* ====== LOGIN (adicionado sem mexer no resto) ====== */
+.loginBox {
+  margin-top: 25px;
+  padding: 18px;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.04);
+  text-align: left;
+}
+
+.loginRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+label {
+  font-size: 13px;
+  color: #cbd5e1;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(15,23,42,0.6);
+  color: #f1f5f9;
+  outline: none;
+}
+
+textarea { min-height: 90px; resize: vertical; }
+
+button {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: none;
+  background: #38bdf8;
+  color: #0f172a;
+  font-weight: 700;
+  cursor: pointer;
+  transition: .2s;
+}
+button:hover { background: #0ea5e9; }
+
+.hint {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-top: 10px;
+}
+
+/* ====== APP INTERNO ====== */
+#appShell {
+  display: none;
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: #f1f5f9;
+}
+
+.appTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+.brand strong { color: #38bdf8; }
+.brand span { color: #cbd5e1; font-size: 12px; }
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.tabBtn {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(56,189,248,0.22);
+  color: #e2e8f0;
+}
+.tabBtn.active {
+  background: rgba(56,189,248,0.18);
+  border-color: #38bdf8;
+}
+
+.appBody {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 12px;
+  padding: 12px;
+  height: calc(100vh - 58px);
+}
+
+.panel {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 12px;
+  overflow: auto;
+}
+
+.panel h3 {
+  margin: 0 0 10px;
+  font-size: 14px;
+  color: #7dd3fc;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.row2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.small {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.listItem {
+  padding: 10px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  margin-top: 8px;
+  text-align: left;
+  background: rgba(15,23,42,0.35);
+}
+.listItem strong { color: #e2e8f0; }
+.listItem em { color: #94a3b8; font-style: normal; font-size: 12px; }
+.listItem .actions { margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap; }
+
+.docPreview {
+  text-align: left;
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(56,189,248,0.25);
+  background: rgba(255,255,255,0.02);
+}
+
+.docHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: flex-start;
+  border-bottom: 1px dashed rgba(255,255,255,0.15);
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+.docHeader strong { color: #38bdf8; }
+.docHeader .meta { font-size: 12px; color: #cbd5e1; }
+.docTitle { font-size: 18px; margin: 10px 0 8px; color: #e2e8f0; }
+.docText { white-space: pre-wrap; line-height: 1.6; color: #e2e8f0; }
+.docFooter { margin-top: 16px; font-size: 12px; color: #94a3b8; border-top: 1px dashed rgba(255,255,255,0.15); padding-top: 10px; }
+
+/* Impressão limpa do documento */
+@media print {
+  body * { visibility: hidden; }
+  #printArea, #printArea * { visibility: visible; }
+  #printArea {
+    position: fixed;
+    left: 0; top: 0;
+    width: 100%;
+    padding: 20px;
+    background: #fff;
+    color: #000;
+  }
+  .docPreview {
+    border: 2px solid #38bdf8;
+    border-radius: 16px;
+    background: #fff;
+  }
+  .docHeader strong { color: #0284c7; }
+  .docText { color: #111; }
+  .docFooter { color: #333; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ====== TELA EXTERNA (IGUAL) + LOGIN ====== -->
+<div id="landing" class="container">
+  <h1>DR. Orlando Abreu Gomes da Silva</h1>
+  <div class="subtitle">Cirurgia e Traumatologia Buco-Maxilo-Facial</div>
+
+  <div class="section">
+    <h2>Atuação Clínica e Cirúrgica</h2>
+    <p>Atuação clínica e cirúrgica com foco em precisão técnica, planejamento digital estruturado e aplicação de protocolos baseados em evidência científica.</p>
+  </div>
+
+  <div class="section">
+    <h2>Pesquisa em Biotecnologia</h2>
+    <p>Desenvolvimento e investigação de soluções em biotecnologia aplicada à saúde, com integração entre inovação clínica, sistemas digitais e estratégias de avanço científico.</p>
+  </div>
+
+  <div class="section">
+    <h2>Infraestrutura e Tecnologia</h2>
+    <p>Estruturação de projetos voltados à infraestrutura tecnológica para sistemas clínicos, digitalização de processos, desenvolvimento de softwares médicos e integração entre saúde e engenharia.</p>
+  </div>
+
+  <div class="section">
+    <h2>Visão Estratégica</h2>
+    <p>Integração entre prática clínica, inovação tecnológica e desenvolvimento regional, com foco em soluções estruturais para a Amazônia.</p>
+  </div>
+
+  <div class="loginBox">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
+      <div>
+        <div style="font-weight:700;color:#7dd3fc;">Acesso ao Sistema</div>
+        <div class="hint">Senha local (offline). Você define e o tablet lembra.</div>
+      </div>
+      <button id="btnResetSenha" title="Trocar/Resetar senha">Resetar senha</button>
+    </div>
+
+    <div class="loginRow">
+      <div>
+        <label>Usuário</label>
+        <input id="loginUser" placeholder="Orlando" />
+      </div>
+      <div>
+        <label>Senha</label>
+        <input id="loginPass" type="password" placeholder="••••••••" />
+      </div>
+      <div style="display:flex;align-items:flex-end;">
+        <button id="btnLogin" style="width:100%;">Entrar</button>
+      </div>
+    </div>
+
+    <div class="hint" id="loginHint"></div>
+  </div>
+
+  <div class="footer">
+    Fundador da BTX TECH – Ecossistema de Tecnologia em Saúde e Infraestrutura<br />
+    Belém – Pará – Brasil
+  </div>
+</div>
+
+<!-- ====== APP INTERNO ====== -->
+<div id="appShell">
+  <div class="appTop">
+    <div class="brand">
+      <strong>BTX Clinic • Dr. Orlando Abreu</strong>
+      <span>Agenda • Receita • Atestado (offline)</span>
+    </div>
+    <div class="tabs">
+      <button class="tabBtn active" data-tab="agenda">Agenda</button>
+      <button class="tabBtn" data-tab="receita">Receita</button>
+      <button class="tabBtn" data-tab="atestado">Atestado</button>
+      <button class="tabBtn" id="btnSair">Sair</button>
+    </div>
+  </div>
+
+  <div class="appBody">
+    <!-- Painel esquerdo: paciente + listas -->
+    <div class="panel">
+      <h3>Paciente (base inteligente)</h3>
+
+      <label>Selecionar paciente</label>
+      <select id="patientSelect"></select>
+      <div class="small" style="margin-top:6px;">Dica: cadastra uma vez e depois só escolhe aqui.</div>
+
+      <div style="height:12px;"></div>
+
+      <div class="row2">
+        <div>
+          <label>Nome</label>
+          <input id="pName" placeholder="Ex: Maria Silva" />
+        </div>
+        <div>
+          <label>CPF (opcional)</label>
+          <input id="pCPF" placeholder="000.000.000-00" />
+        </div>
+      </div>
+
+      <div class="row2" style="margin-top:10px;">
+        <div>
+          <label>Data de nascimento (opcional)</label>
+          <input id="pDOB" type="date" />
+        </div>
+        <div>
+          <label>Telefone (opcional)</label>
+          <input id="pPhone" placeholder="(91) 9xxxx-xxxx" />
+        </div>
+      </div>
+
+      <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;">
+        <button id="btnSavePatient">Salvar paciente</button>
+        <button id="btnDeletePatient" style="background: rgba(255,255,255,0.10); color:#e2e8f0;">Excluir</button>
+      </div>
+
+      <div style="height:14px;"></div>
+      <h3>Meus registros</h3>
+      <div class="small">Agenda e documentos ficam salvos localmente.</div>
+
+      <div id="leftList"></div>
+    </div>
+
+    <!-- Painel direito: conteúdo por aba -->
+    <div class="panel">
+      <div id="tab_agenda">
+        <h3>Agenda</h3>
+
+        <div class="row2">
+          <div>
+            <label>Data</label>
+            <input id="aDate" type="date" />
+          </div>
+          <div>
+            <label>Hora</label>
+            <input id="aTime" type="time" />
+          </div>
+        </div>
+
+        <div style="margin-top:10px;">
+          <label>Motivo / Observação</label>
+          <textarea id="aNote" placeholder="Ex: retorno, extração, avaliação, dor, etc."></textarea>
+        </div>
+
+        <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;">
+          <button id="btnAddAppointment">Adicionar</button>
+          <button id="btnClearAppointment" style="background: rgba(255,255,255,0.10); color:#e2e8f0;">Limpar</button>
+        </div>
+      </div>
+
+      <div id="tab_receita" style="display:none;">
+        <h3>Receita (inteligente)</h3>
+
+        <label>Modelo rápido</label>
+        <select id="rxTemplate">
+          <option value="analgesico">Analgésico (modelo)</option>
+          <option value="antiinflamatorio">Anti-inflamatório (modelo)</option>
+          <option value="antibiotico">Antibiótico (modelo)</option>
+          <option value="livre">Texto livre</option>
+        </select>
+
+        <div style="margin-top:10px;">
+          <label>Conteúdo da Receita</label>
+          <textarea id="rxText"></textarea>
+          <div class="small">Você escolhe o paciente e o modelo. Depois é só imprimir ou salvar.</div>
+        </div>
+
+        <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;">
+          <button id="btnSaveRx">Salvar Receita</button>
+          <button id="btnPrintDoc" style="background:#22c55e;">Imprimir</button>
+        </div>
+
+        <div style="height:12px;"></div>
+        <div id="printArea">
+          <div class="docPreview" id="docPreview"></div>
+        </div>
+      </div>
+
+      <div id="tab_atestado" style="display:none;">
+        <h3>Atestado</h3>
+
+        <label>Texto do Atestado</label>
+        <textarea id="attText" placeholder="Ex: Atesto para os devidos fins que o(a) paciente esteve sob meus cuidados..."></textarea>
+
+        <div style="display:flex; gap:10px; margin-top:12px; flex-wrap:wrap;">
+          <button id="btnSaveAtt">Salvar Atestado</button>
+          <button id="btnPrintDoc2" style="background:#22c55e;">Imprimir</button>
+        </div>
+
+        <div style="height:12px;"></div>
+        <div id="printArea2">
+          <div class="docPreview" id="docPreview2"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================
+   Storage helpers
+============================ */
+const LS = {
+  get(key, fallback) {
+    try { return JSON.parse(localStorage.getItem(key)) ?? fallback; }
+    catch { return fallback; }
+  },
+  set(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+  }
+};
+
+const KEYS = {
+  auth: "btx_auth",
+  users: "btx_users",
+  patients: "btx_patients",
+  agenda: "btx_agenda",
+  docs: "btx_docs"
+};
+
+/* ============================
+   Login simples
+============================ */
+function ensureDefaultPassword() {
+  let auth = LS.get(KEYS.auth, null);
+  if (!auth) {
+    // senha default (pode trocar via reset)
+    auth = { user: "Orlando", pass: "1234" };
+    LS.set(KEYS.auth, auth);
+  }
+  return auth;
+}
+
+function showApp() {
+  document.getElementById("landing").style.display = "none";
+  document.getElementById("appShell").style.display = "block";
+}
+
+function showLanding() {
+  document.getElementById("landing").style.display = "block";
+  document.getElementById("appShell").style.display = "none";
+}
+
+/* ============================
+   Pacientes (base inteligente)
+============================ */
+function getPatients() { return LS.get(KEYS.patients, []); }
+function setPatients(list) { LS.set(KEYS.patients, list); }
+
+function upsertPatient(p) {
+  const list = getPatients();
+  const idx = list.findIndex(x => x.id === p.id);
+  if (idx >= 0) list[idx] = p;
+  else list.push(p);
+  setPatients(list);
+  refreshPatientSelect(p.id);
+}
+
+function deletePatient(id) {
+  const list = getPatients().filter(x => x.id !== id);
+  setPatients(list);
+  refreshPatientSelect();
+}
+
+function refreshPatientSelect(selectedId) {
+  const sel = document.getElementById("patientSelect");
+  const list = getPatients();
+  sel.innerHTML = "";
+  const opt0 = document.createElement("option");
+  opt0.value = "";
+  opt0.textContent = "— Selecione —";
+  sel.appendChild(opt0);
+
+  list
+    .sort((a,b)=> (a.name||"").localeCompare(b.name||""))
+    .forEach(p => {
+      const opt = document.createElement("option");
+      opt.value = p.id;
+      opt.textContent = p.name || "(Sem nome)";
+      sel.appendChild(opt);
+    });
+
+  if (selectedId) sel.value = selectedId;
+  loadPatientToForm(sel.value);
+  refreshLeftList();
+}
+
+function loadPatientToForm(id) {
+  const p = getPatients().find(x => x.id === id);
+  document.getElementById("pName").value = p?.name || "";
+  document.getElementById("pCPF").value = p?.cpf || "";
+  document.getElementById("pDOB").value = p?.dob || "";
+  document.getElementById("pPhone").value = p?.phone || "";
+}
+
+/* ============================
+   Agenda
+============================ */
+function getAgenda() { return LS.get(KEYS.agenda, []); }
+function setAgenda(list) { LS.set(KEYS.agenda, list); }
+
+function addAppointment(appt) {
+  const list = getAgenda();
+  list.push(appt);
+  setAgenda(list);
+  refreshLeftList();
+}
+
+/* ============================
+   Docs (receitas/atestados)
+============================ */
+function getDocs() { return LS.get(KEYS.docs, []); }
+function setDocs(list) { LS.set(KEYS.docs, list); }
+
+function addDoc(doc) {
+  const list = getDocs();
+  list.push(doc);
+  setDocs(list);
+  refreshLeftList();
+}
+
+/* ============================
+   UI: Lista esquerda
+============================ */
+function refreshLeftList() {
+  const wrap = document.getElementById("leftList");
+  const pid = document.getElementById("patientSelect").value;
+  const patients = getPatients();
+  const p = patients.find(x => x.id === pid);
+
+  const agenda = getAgenda().filter(a => !pid || a.patientId === pid);
+  const docs = getDocs().filter(d => !pid || d.patientId === pid);
+
+  wrap.innerHTML = "";
+
+  // agenda
+  const agTitle = document.createElement("div");
+  agTitle.className = "listItem";
+  agTitle.innerHTML = `<strong>Agenda</strong><br><em>${pid ? ("Paciente: "+(p?.name||"")) : "Todos os pacientes"}</em>`;
+  wrap.appendChild(agTitle);
+
+  agenda
+    .slice()
+    .sort((a,b)=> (a.date+a.time).localeCompare(b.date+b.time))
+    .slice(-8)
+    .reverse()
+    .forEach(a => {
+      const item = document.createElement("div");
+      item.className = "listItem";
+      item.innerHTML = `
+        <strong>${a.date} • ${a.time || "--:--"}</strong><br>
+        <em>${a.patientName || "Sem paciente"} — ${escapeHTML(a.note||"")}</em>
+        <div class="actions">
+          <button style="background:rgba(255,255,255,0.10);color:#e2e8f0;" data-del-appt="${a.id}">Excluir</button>
+        </div>
+      `;
+      wrap.appendChild(item);
+    });
+
+  // docs
+  const docTitle = document.createElement("div");
+  docTitle.className = "listItem";
+  docTitle.innerHTML = `<strong>Documentos</strong><br><em>${pid ? ("Paciente: "+(p?.name||"")) : "Todos os pacientes"}</em>`;
+  wrap.appendChild(docTitle);
+
+  docs
+    .slice(-10)
+    .reverse()
+    .forEach(d => {
+      const item = document.createElement("div");
+      item.className = "listItem";
+      item.innerHTML = `
+        <strong>${d.type.toUpperCase()} • ${formatBR(d.createdAt)}</strong><br>
+        <em>${d.patientName || "Sem paciente"}</em>
+        <div class="actions">
+          <button data-open-doc="${d.id}" style="background:rgba(56,189,248,0.18);border:1px solid #38bdf8;color:#e2e8f0;">Abrir</button>
+          <button data-del-doc="${d.id}" style="background:rgba(255,255,255,0.10);color:#e2e8f0;">Excluir</button>
+        </div>
+      `;
+      wrap.appendChild(item);
+    });
+
+  // delegação de eventos
+  wrap.querySelectorAll("[data-del-appt]").forEach(btn=>{
+    btn.onclick = () => {
+      const id = btn.getAttribute("data-del-appt");
+      const list = getAgenda().filter(x=>x.id!==id);
+      setAgenda(list);
+      refreshLeftList();
+    };
+  });
+
+  wrap.querySelectorAll("[data-del-doc]").forEach(btn=>{
+    btn.onclick = () => {
+      const id = btn.getAttribute("data-del-doc");
+      const list = getDocs().filter(x=>x.id!==id);
+      setDocs(list);
+      refreshLeftList();
+      // limpa preview se for o mesmo
+    };
+  });
+
+  wrap.querySelectorAll("[data-open-doc]").forEach(btn=>{
+    btn.onclick = () => {
+      const id = btn.getAttribute("data-open-doc");
+      const doc = getDocs().find(x=>x.id===id);
+      if (!doc) return;
+
+      if (doc.type === "receita") {
+        activateTab("receita");
+        renderDocPreview("receita", doc);
+      } else {
+        activateTab("atestado");
+        renderDocPreview("atestado", doc);
+      }
+    };
+  });
+}
+
+/* ============================
+   Templates receita (inteligente)
+============================ */
+function rxTemplateText(kind, patientName) {
+  const nome = patientName ? patientName.toUpperCase() : "________________________________";
+  const common = `PACIENTE: ${nome}\n\n`;
+
+  if (kind === "analgesico") {
+    return common +
+`1) Dipirona 500 mg (comprimido)
+   Tomar 1 comprimido a cada 6 horas se dor, por 3 dias.\n\nOrientações: não exceder dose recomendada.`;
+  }
+  if (kind === "antiinflamatorio") {
+    return common +
+`1) Ibuprofeno 600 mg (comprimido)
+   Tomar 1 comprimido a cada 8 horas, após alimentação, por 3 dias.\n\nAtenção: evitar em gastrite importante, insuficiência renal, alergia.`;
+  }
+  if (kind === "antibiotico") {
+    return common +
+`1) Amoxicilina 500 mg (cápsula)
+   Tomar 1 cápsula a cada 8 horas por 7 dias.\n\nAtenção: se alergia à penicilina, informar ao profissional.`;
+  }
+  return common + `Escreva a prescrição aqui...`;
+}
+
+/* ============================
+   Documento / preview / print
+============================ */
+function renderDocPreview(type, doc) {
+  const paciente = doc.patientName || "";
+  const now = formatBR(doc.createdAt || new Date().toISOString());
+  const headerLeft = `Dr. Orlando Abreu Gomes da Silva`;
+  const headerRight = `Belém/PA • ${now}`;
+
+  const html = `
+    <div class="docHeader">
+      <div>
+        <strong>${headerLeft}</strong>
+        <div class="meta">Cirurgia e Traumatologia Buco-Maxilo-Facial</div>
+      </div>
+      <div class="meta" style="text-align:right;">${headerRight}</div>
+    </div>
+    <div class="docTitle">${type === "receita" ? "Receita" : "Atestado"}</div>
+    <div class="docText">${escapeHTML(doc.text || "")}</div>
+    <div class="docFooter">
+      Paciente: <strong style="color:#111;">${escapeHTML(paciente)}</strong><br>
+      Assinatura/Carimbo: ________________________________
+    </div>
+  `;
+
+  if (type === "receita") {
+    document.getElementById("docPreview").innerHTML = html;
+  } else {
+    document.getElementById("docPreview2").innerHTML = html;
+  }
+}
+
+/* ============================
+   Tabs
+============================ */
+function activateTab(tab) {
+  document.querySelectorAll(".tabBtn").forEach(b=>{
+    if (b.dataset.tab) b.classList.toggle("active", b.dataset.tab === tab);
+  });
+  document.getElementById("tab_agenda").style.display = tab === "agenda" ? "block" : "none";
+  document.getElementById("tab_receita").style.display = tab === "receita" ? "block" : "none";
+  document.getElementById("tab_atestado").style.display = tab === "atestado" ? "block" : "none";
+}
+
+/* ============================
+   Util
+============================ */
+function uid() { return Math.random().toString(16).slice(2) + Date.now().toString(16); }
+
+function formatBR(iso) {
+  try {
+    const d = new Date(iso);
+    return d.toLocaleString("pt-BR");
+  } catch { return iso; }
+}
+
+function escapeHTML(str) {
+  return String(str)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;");
+}
+
+/* ============================
+   Boot
+============================ */
+(function init() {
+  ensureDefaultPassword();
+
+  // Hint login
+  const auth = LS.get(KEYS.auth, {user:"Orlando", pass:"1234"});
+  const hint = document.getElementById("loginHint");
+  hint.textContent = `Primeiro acesso? Usuário padrão: ${auth.user} | Senha padrão: ${auth.pass}`;
+
+  // Login
+  document.getElementById("btnLogin").onclick = () => {
+    const u = document.getElementById("loginUser").value.trim() || "";
+    const p = document.getElementById("loginPass").value.trim() || "";
+    const auth = LS.get(KEYS.auth, null);
+
+    if (!auth) return alert("Erro: senha não definida. Use Resetar senha.");
+    if (u === auth.user && p === auth.pass) {
+      showApp();
+      refreshPatientSelect();
+      // defaults
+      document.getElementById("aDate").valueAsDate = new Date();
+      document.getElementById("aTime").value = "";
+      activateTab("agenda");
+    } else {
+      alert("Usuário ou senha incorretos.");
+    }
+  };
+
+  // Reset senha
+  document.getElementById("btnResetSenha").onclick = () => {
+    const newUser = prompt("Novo usuário (ex: Orlando):", "Orlando");
+    if (newUser === null) return;
+    const newPass = prompt("Nova senha:", "");
+    if (newPass === null || newPass.trim().length < 2) return alert("Senha inválida.");
+    LS.set(KEYS.auth, { user: newUser.trim(), pass: newPass.trim() });
+    alert("Senha atualizada. Use no login.");
+    const auth = LS.get(KEYS.auth, {user:"Orlando", pass:"1234"});
+    document.getElementById("loginHint").textContent = `Usuário padrão: ${auth.user} | Senha padrão: ${auth.pass}`;
+  };
+
+  // Tabs
+  document.querySelectorAll(".tabBtn").forEach(b=>{
+    if (!b.dataset.tab) return;
+    b.onclick = () => activateTab(b.dataset.tab);
+  });
+
+  // Sair
+  document.getElementById("btnSair").onclick = () => {
+    showLanding();
+    document.getElementById("loginPass").value = "";
+  };
+
+  // Selecionar paciente
+  document.getElementById("patientSelect").onchange = (e) => {
+    loadPatientToForm(e.target.value);
+    refreshLeftList();
+    // atualizar texto do template de receita com nome do paciente
+    const pid = e.target.value;
+    const p = getPatients().find(x=>x.id===pid);
+    const kind = document.getElementById("rxTemplate").value;
+    document.getElementById("rxText").value = rxTemplateText(kind, p?.name || "");
+    renderDocPreview("receita", { patientName: p?.name || "", createdAt: new Date().toISOString(), text: document.getElementById("rxText").value });
+  };
+
+  // Salvar paciente
+  document.getElementById("btnSavePatient").onclick = () => {
+    const selId = document.getElementById("patientSelect").value;
+    const name = document.getElementById("pName").value.trim();
+    if (!name) return alert("Coloque o nome do paciente.");
+
+    const p = {
+      id: selId || uid(),
+      name,
+      cpf: document.getElementById("pCPF").value.trim(),
+      dob: document.getElementById("pDOB").value,
+      phone: document.getElementById("pPhone").value.trim()
+    };
+    upsertPatient(p);
+    alert("Paciente salvo.");
+  };
+
+  // Excluir paciente
+  document.getElementById("btnDeletePatient").onclick = () => {
+    const id = document.getElementById("patientSelect").value;
+    if (!id) return alert("Selecione um paciente.");
+    if (!confirm("Excluir este paciente?")) return;
+    deletePatient(id);
+  };
+
+  // Agenda: adicionar
+  document.getElementById("btnAddAppointment").onclick = () => {
+    const pid = document.getElementById("patientSelect").value;
+    const patients = getPatients();
+    const p = patients.find(x=>x.id===pid);
+
+    const date = document.getElementById("aDate").value;
+    if (!date) return alert("Escolha a data.");
+    const time = document.getElementById("aTime").value || "";
+    const note = document.getElementById("aNote").value.trim();
+
+    addAppointment({
+      id: uid(),
+      patientId: pid || "",
+      patientName: p?.name || "(Sem paciente)",
+      date,
+      time,
+      note,
+      createdAt: new Date().toISOString()
+    });
+    document.getElementById("aNote").value = "";
+    alert("Agendamento salvo.");
+  };
+
+  document.getElementById("btnClearAppointment").onclick = () => {
+    document.getElementById("aTime").value = "";
+    document.getElementById("aNote").value = "";
+  };
+
+  // Receita: template
+  document.getElementById("rxTemplate").onchange = () => {
+    const pid = document.getElementById("patientSelect").value;
+    const p = getPatients().find(x=>x.id===pid);
+    const kind = document.getElementById("rxTemplate").value;
+    document.getElementById("rxText").value = rxTemplateText(kind, p?.name || "");
+    renderDocPreview("receita", { patientName: p?.name || "", createdAt: new Date().toISOString(), text: document.getElementById("rxText").value });
+  };
+
+  // Receita: ao digitar, atualiza preview
+  document.getElementById("rxText").addEventListener("input", () => {
+    const pid = document.getElementById("patientSelect").value;
+    const p = getPatients().find(x=>x.id===pid);
+    renderDocPreview("receita", { patientName: p?.name || "", createdAt: new Date().toISOString(), text: document.getElementById("rxText").value });
+  });
+
+  // Salvar receita
+  document.getElementById("btnSaveRx").onclick = () => {
+    const pid = document.getElementById("patientSelect").value;
+    const p = getPatients().find(x=>x.id===pid);
+    const text = document.getElementById("rxText").value.trim();
+    if (!text) return alert("Escreva a receita.");
+
+    const doc = {
+      id: uid(),
+      type: "receita",
+      patientId: pid || "",
+      patientName: p?.name || "(Sem paciente)",
+      createdAt: new Date().toISOString(),
+      text
+    };
+    addDoc(doc);
+    renderDocPreview("receita", doc);
+    alert("Receita salva.");
+  };
+
+  // Imprimir receita
+  document.getElementById("btnPrintDoc").onclick = () => window.print();
+
+  // Atestado: preview automático
+  document.getElementById("attText").addEventListener("input", () => {
+    const pid = document.getElementById("patientSelect").value;
+    const p = getPatients().find(x=>x.id===pid);
+    renderDocPreview("atestado", { patientName: p?.name || "", createdAt: new Date().toISOString(), text: document.getElementById("attText").value });
+  });
+
+  // Salvar atestado
+  document.getElementById("btnSaveAtt").onclick = () => {
+    const pid = document.getElementById("patientSelect").value;
+    const p = getPatients().find(x=>x.id===pid);
+    const text = document.getElementById("attText").value.trim();
+    if (!text) return alert("Escreva o atestado.");
+
+    const doc = {
+      id: uid(),
+      type: "atestado",
+      patientId: pid || "",
+      patientName: p?.name || "(Sem paciente)",
+      createdAt: new Date().toISOString(),
+      text
+    };
+    addDoc(doc);
+    renderDocPreview("atestado", doc);
+    alert("Atestado salvo.");
+  };
+
+  // Imprimir atestado
+  document.getElementById("btnPrintDoc2").onclick = () => window.print();
+
+  // estado inicial do template receita
+  document.getElementById("rxTemplate").dispatchEvent(new Event("change"));
+})();
+</script>
+
+</body>
+</html>
